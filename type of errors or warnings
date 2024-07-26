@@ -17,4 +17,5 @@ just destroying all of files error [Self destruct error]: deleting all executor 
 just destroying all of files warning [The files will be deleted warning]: deleting all executor files..
 -----------------------------------
 red Attempt notify [Attempt]: text (if red then thats super need for injection)
-yellow attempt notify [Attempt]: text (if yellow then just downloading some files to inject and need for injection)
+yellow Attempt notify [Attempt]: text (if yellow then just downloading some files to inject and need for injection)
+--- Attempt is just Attempting to inject or download files that need for executor or inject to roblox
