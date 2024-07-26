@@ -1,0 +1,146 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local trilol = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local executebutton = Instance.new("ImageButton")
+local textboxscript = Instance.new("TextBox")
+local ImageLabel = Instance.new("ImageLabel")
+local Frame_2 = Instance.new("Frame")
+
+--Properties:
+
+trilol.Name = "trilol"
+trilol.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+trilol.Enabled = false
+trilol.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = trilol
+Frame.BackgroundColor3 = Color3.fromRGB(98, 98, 98)
+Frame.BackgroundTransparency = 0.200
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.203806505, 0, 0.239454091, 0)
+Frame.Size = UDim2.new(0, 796, 0, 409)
+
+executebutton.Name = "executebutton"
+executebutton.Parent = Frame
+executebutton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+executebutton.BackgroundTransparency = 1.000
+executebutton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+executebutton.BorderSizePixel = 0
+executebutton.Position = UDim2.new(-0.00347992405, 0, 0.886884391, 0)
+executebutton.Size = UDim2.new(0, 56, 0, 40)
+executebutton.Image = "rbxassetid://18662551174"
+
+textboxscript.Name = "textboxscript"
+textboxscript.Parent = Frame
+textboxscript.BackgroundColor3 = Color3.fromRGB(143, 143, 143)
+textboxscript.BackgroundTransparency = 0.450
+textboxscript.BorderColor3 = Color3.fromRGB(0, 0, 0)
+textboxscript.BorderSizePixel = 0
+textboxscript.Position = UDim2.new(-0.000967361208, 0, 0.110597789, 0)
+textboxscript.Size = UDim2.new(0, 796, 0, 329)
+textboxscript.Font = Enum.Font.FredokaOne
+textboxscript.PlaceholderColor3 = Color3.fromRGB(178, 178, 178)
+textboxscript.Text = ""
+textboxscript.TextColor3 = Color3.fromRGB(255, 255, 255)
+textboxscript.TextSize = 14.000
+textboxscript.TextXAlignment = Enum.TextXAlignment.Left
+textboxscript.TextYAlignment = Enum.TextYAlignment.Top
+
+ImageLabel.Parent = Frame
+ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel.BackgroundTransparency = 1.000
+ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageLabel.BorderSizePixel = 0
+ImageLabel.Position = UDim2.new(-0.00347992405, 0, -0.000154751731, 0)
+ImageLabel.Size = UDim2.new(0, 54, 0, 40)
+ImageLabel.Image = "rbxassetid://18662512424"
+
+Frame_2.Parent = Frame
+Frame_2.BackgroundColor3 = Color3.fromRGB(118, 118, 118)
+Frame_2.BackgroundTransparency = 0.300
+Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_2.BorderSizePixel = 0
+Frame_2.Position = UDim2.new(-0.000967361208, 0, -0.000154751731, 0)
+Frame_2.Size = UDim2.new(0, 796, 0, 40)
+
+-- Scripts:
+
+local function LEEBXMC_fake_script() -- Frame.Smooth GUI Dragging 
+	local script = Instance.new('LocalScript', Frame)
+
+	local UserInputService = game:GetService("UserInputService")
+	local runService = (game:GetService("RunService"));
+	
+	local gui = script.Parent
+	
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	
+	function Lerp(a, b, m)
+		return a + (b - a) * m
+	end;
+	
+	local lastMousePos
+	local lastGoalPos
+	local DRAG_SPEED = (8); -- // The speed of the UI darg.
+	function Update(dt)
+		if not (startPos) then return end;
+		if not (dragging) and (lastGoalPos) then
+			gui.Position = UDim2.new(startPos.X.Scale, Lerp(gui.Position.X.Offset, lastGoalPos.X.Offset, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(gui.Position.Y.Offset, lastGoalPos.Y.Offset, dt * DRAG_SPEED))
+			return 
+		end;
+	
+		local delta = (lastMousePos - UserInputService:GetMouseLocation())
+		local xGoal = (startPos.X.Offset - delta.X);
+		local yGoal = (startPos.Y.Offset - delta.Y);
+		lastGoalPos = UDim2.new(startPos.X.Scale, xGoal, startPos.Y.Scale, yGoal)
+		gui.Position = UDim2.new(startPos.X.Scale, Lerp(gui.Position.X.Offset, xGoal, dt * DRAG_SPEED), startPos.Y.Scale, Lerp(gui.Position.Y.Offset, yGoal, dt * DRAG_SPEED))
+	end;
+	
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+			lastMousePos = UserInputService:GetMouseLocation()
+	
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+	
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	
+	runService.Heartbeat:Connect(Update)
+end
+coroutine.wrap(LEEBXMC_fake_script)()
+local function MYYFVYX_fake_script() -- trilol.LocalScript 
+	local script = Instance.new('LocalScript', trilol)
+
+	local gui = script.Parent -- assume the GUI is a child of the script
+	local enabled = false
+	
+	local userInputService = game:GetService("UserInputService")
+	
+	userInputService.InputBegan:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.Insert then
+			enabled = not enabled
+			gui.Enabled = enabled
+		end
+	end)
+end
+coroutine.wrap(MYYFVYX_fake_script)()
