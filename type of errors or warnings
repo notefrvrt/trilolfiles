@@ -15,3 +15,6 @@ self destruct warning [UNEXPECTED WARNING]; DELETE "NameOfFile.exe" QUICKLY!
 -----------------------------------
 just destroying all of files error [Self destruct error]: deleting all executor files...
 just destroying all of files warning [The files will be deleted warning]: deleting all executor files..
+-----------------------------------
+red Attempt notify [Attempt]: text (if red then thats super need for injection)
+yellow attempt notify [Attempt]: text (if yellow then just downloading some files to inject and need for injection)
